@@ -7,13 +7,26 @@ export const metadata: Metadata = {
   description: "Cybersecurity learning and security testing platform",
 };
 
+const themeScript = `
+  try {
+    const theme = localStorage.getItem("securesphere_theme");
+    document.documentElement.dataset.theme =
+      theme === "light" ? "light" : "dark";
+  } catch {
+    document.documentElement.dataset.theme = "dark";
+  }
+`;
+
 export default function RootLayout({
   children,
 }: {
   children: import("react").ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>{children}</body>
     </html>
   );

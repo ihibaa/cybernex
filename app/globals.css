@@ -1,8 +1,33 @@
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* DARK THEME */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #070b14;
+  --foreground: #f1f5f9;
+  --surface: #0c1220;
+  --sidebar: #0b1120;
+  --surface-input: #070b14;
+  --border: #1e293b;
+  --muted: #94a3b8;
+  --accent: #22d3ee;
+  --accent-text: #67e8f9;
+}
+
+/* LIGHT THEME */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background: #f4f7fb;
+  --foreground: #172033;
+  --surface: #ffffff;
+  --sidebar: #edf2f8;
+  --surface-input: #ffffff;
+  --border: #dbe3ee;
+  --muted: #526176;
+  --accent: #0891b2;
+  --accent-text: #0e7490;
 }
 
 @theme inline {
@@ -12,15 +37,97 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  min-height: 100%;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
+}
+
+/* Smooth theme transition */
+body,
+body * {
+  transition: background-color 180ms ease, color 180ms ease,
+    border-color 180ms ease;
+}
+
+/* LIGHT MODE: main dark backgrounds */
+:root[data-theme="light"] [class~="bg-[#070b14]"],
+:root[data-theme="light"] [class~="bg-[#0c1220]"],
+:root[data-theme="light"] [class~="bg-[#0b1120]"] {
+  background-color: var(--surface) !important;
+}
+
+:root[data-theme="light"] [class~="bg-slate-950"],
+:root[data-theme="light"] [class~="bg-slate-900"],
+:root[data-theme="light"] [class~="bg-slate-800"] {
+  background-color: #e8eef6 !important;
+}
+
+/* LIGHT MODE: text */
+:root[data-theme="light"] .text-white,
+:root[data-theme="light"] .text-slate-100,
+:root[data-theme="light"] .text-slate-200 {
+  color: #172033 !important;
+}
+
+:root[data-theme="light"] .text-slate-300 {
+  color: #334155 !important;
+}
+
+:root[data-theme="light"] .text-slate-400,
+:root[data-theme="light"] .text-slate-500,
+:root[data-theme="light"] .text-slate-600 {
+  color: #526176 !important;
+}
+
+/* LIGHT MODE: borders */
+:root[data-theme="light"] .border-slate-800,
+:root[data-theme="light"] .border-slate-700,
+:root[data-theme="light"] .border-slate-600 {
+  border-color: var(--border) !important;
+}
+
+/* LIGHT MODE: inputs */
+:root[data-theme="light"] input,
+:root[data-theme="light"] textarea,
+:root[data-theme="light"] select {
+  background-color: var(--surface-input);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  border-color: var(--border);
+}
+
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder {
+  color: #64748b;
+}
+
+/* LIGHT MODE: cyan accents */
+:root[data-theme="light"] .text-cyan-300,
+:root[data-theme="light"] .text-cyan-400 {
+  color: var(--accent-text);
+}
+
+/* LIGHT MODE: hero gradients */
+:root[data-theme="light"] .bg-gradient-to-br {
+  background-image: linear-gradient(
+    to bottom right,
+    #e0f7fc,
+    #f1f5f9,
+    #ffffff
+  );
+}
+
+/* Preserve readable status colors */
+:root[data-theme="light"] .text-green-300 {
+  color: #15803d;
+}
+
+:root[data-theme="light"] .text-amber-200\/80 {
+  color: #92400e;
 }
